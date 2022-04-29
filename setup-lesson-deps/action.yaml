@@ -65,6 +65,9 @@ runs:
             if (Sys.info()[["sysname"]] == "Linux") {
               options(repos = c(RSPM = Sys.getenv("RSPM"), getOption("repos")))
             }
+            lock_path <- "renv/profiles/lesson-requirements/renv.lock"
+            cmd <- r"{sed -i -e 's/ory\": \"CRAN\"/ory\": \"RSPM\"/'}"
+            system(paste(cmd, lock_path))
             sandpaper::manage_deps(path = wd, quiet = FALSE)
           } else {
             writeLines("Package cache not used")
